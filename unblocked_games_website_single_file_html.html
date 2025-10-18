@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PlayBreak — Unblocked Games</title>
+  <style>
+    /* ===== Theme variables (will be switched with .theme-*) ===== */
+    :root{
+      --bg: linear-gradient(180deg,#071127 0%,#071a2a 100%);
+      --page-bg: rgba(2,6,23,0.55);
+      --card:#0b1220;
+      --muted:#9ca3af;
+      --text:#e6eef6;
+      --accent:#06b6d4;
+      --glass: rgba(255,255,255,0.04);
+      --shadow: 0 6px 24px rgba(2,6,23,0.6);
+    }
+
+    .theme-light{
+      --bg: linear-gradient(180deg,#f6fbff 0%,#eef6ff 100%);
+      --page-bg: rgba(255,255,255,0.8);
+      --card:#ffffff;
+      --muted:#475569;
+      --text:#0b1220;
+      --accent:#0ea5a4;
+      --glass: rgba(2,6,23,0.03);
+      --shadow: 0 8px 30px rgba(2,6,23,0.08);
+    }
+
+    .theme-dark{ /* default */ }
+
+    .theme-neon{
+      --bg: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1920&q=60') center/cover no-repeat, linear-gradient(180deg,#041022 0%,#071228 100%);
+      --page-bg: rgba(2,6,23,0.45);
+      --card: rgba(2,6,23,0.65);
+      --muted:#cbd5e1;
+      --text:#e6eef6;
+      --accent:#7c3aed;
+      --glass: rgba(255,255,255,0.03);
+      --shadow: 0 10px 40px rgba(124,58,237,0.12);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--bg);color:var(--text);transition:background .45s ease,color .3s ease}
+
+    .container{max-width:1100px;margin:28px auto;padding:20px}
+    header{display:flex;align-items:center;gap:16px}
+
+    .logo{display:flex;align-items:center;gap:10px}
+    .mark{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#3b82f6);display:flex;align-items:center;justify-content:center;font-weight:800;color:#021124;box-shadow:var(--shadow)}
+    h1{font-size:20px;margin:0}
+
+    nav{margin-left:auto;display:flex;gap:14px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:8px;transition:all .18s}
+    nav a:hover{color:var(--text);background:rgba(255,255,255,0.02);transform:translateY(-2px)}
+
+    .theme-toggle{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:10px;background:var(--page-bg);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+    .theme-toggle select{background:transparent;border:0;color:var(--text);font-weight:600}
+
+    .page{display:none;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
+    .page.active{display:block;opacity:1;transform:none}
+
+    .card{background:var(--card);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.04);margin-top:20px;box-shadow:var(--shadow);backdrop-filter: blur(6px);transition:transform .25s,box-shadow .25s}
+    .card:hover{transform:translateY(-6px)}
+
+    footer{text-align:center;color:var(--muted);font-size:13px;margin-top:26px}
+
+    .game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:16px}
+    .game{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:10px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);transition:transform .2s,box-shadow .2s}
+    .game:hover{transform:translateY(-8px);box-shadow:0 22px 44px rgba(2,6,23,0.35)}
+    .game img{width:100%;height:140px;object-fit:cover;border-radius:8px;display:block}
+    .game .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+    .game .meta .title{font-weight:700}
+    .play-btn{background:var(--accent);border:none;color:#021124;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700}
+
+    /* hover thumbnail glow (neon theme only) */
+    .theme-neon .game img{transition:transform .28s,filter .28s}
+    .theme-neon .game:hover img{transform:scale(1.03);filter:drop-shadow(0 10px 22px rgba(124,58,237,0.25))}
+
+    /* responsive */
+    @media (max-width:900px){.game-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}.container{padding:14px}}
+  </style>
+</head>
+<body class="theme-dark">
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="mark">PB</div>
+        <div>
+          <h1>PlayBreak</h1>
+          <div style="font-size:12px;color:var(--muted)">Fast • School-friendly • Lightweight</div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#home" data-page="home">Home</a>
+        <a href="#games" data-page="games">Games</a>
+        <a href="#about" data-page="about">About</a>
+        <a href="#contact" data-page="contact">Contact</a>
+
+        <div class="theme-toggle" title="Choose theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg>
+          <select id="themeSelect" aria-label="Theme selector">
+            <option value="dark">Dark</option>
+            <option value="neon">Neon</option>
+            <option value="light">Light</option>
+          </select>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Home Page -->
+      <section id="home" class="page active">
+        <div class="card">
+          <h2>Welcome to PlayBreak</h2>
+          <p style="color:var(--muted)">Fast, clean, and school-friendly unblocked games. Play anywhere, anytime.</p>
+          <div style="height:12px"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="play-btn" data-page-target="games">Browse Games</button>
+            <a href="#contact" style="align-self:center;color:var(--muted);text-decoration:none">Report an issue</a>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <h3 style="margin:0 0 10px 0">Featured Picks</h3>
+          <div class="game-grid" id="featuredGrid"></div>
+        </div>
+      </section>
+
+      <!-- Games Page -->
+      <section id="games" class="page">
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <h2 style="margin:0">All Games</h2>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="searchInput" placeholder="Search games or categories" style="padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)" />
+              <select id="categoryFilter" style="padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
+                <option value="">All categories</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="game-grid" id="gamesGrid"></div>
+        </div>
+      </section>
+
+      <!-- About Page -->
+      <section id="about" class="page">
+        <div class="card">
+          <h2>About PlayBreak</h2>
+          <p style="color:var(--muted)">PlayBreak is a lightweight unblocked games website built for fun and simplicity. Everything runs directly in your browser, with no tracking or ads. We’re constantly updating with more HTML5 games to keep your breaks entertaining.</p>
+        </div>
+      </section>
+
+      <!-- Contact Page -->
+      <section id="contact" class="page">
+        <div class="card">
+          <h2>Contact Us</h2>
+          <p style="color:var(--muted)">Have a broken game or a suggestion? Reach out via <a href="mailto:admin@playbreak.site">admin@playbreak.site</a>. We’ll respond as soon as possible!</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>Made with ❤️ — PlayBreak • Not affiliated with any game publishers.</footer>
+  </div>
+
+  <!-- Modal player -->
+  <div id="modal" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.7);z-index:80">
+    <div style="width:92%;max-width:1000px;height:80vh;background:var(--page-bg);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;backdrop-filter: blur(6px);">
+      <header style="display:flex;justify-content:space-between;padding:10px;color:var(--muted);background:rgba(255,255,255,0.02)">
+        <span id="modalTitle"></span>
+        <div style="display:flex;gap:8px">
+          <button id="openNew" style="background:none;border:0;color:var(--muted);cursor:pointer">Open in new tab</button>
+          <button id="closeModal" style="background:none;border:none;color:var(--muted);cursor:pointer">Close</button>
+        </div>
+      </header>
+      <iframe id="player" src="" style="flex:1;border:0"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // ===== sample games =====
+    const games=[
+      {id:1,title:'Pixel Runner',thumb:'https://picsum.photos/seed/pr/640/360',category:'Platformer',src:'/games/pixel-runner/index.html'},
+      {id:2,title:'Orbit Dodge',thumb:'https://picsum.photos/seed/od/640/360',category:'Arcade',src:'/games/orbit-dodge/index.html'},
+      {id:3,title:'Puzzle Blocks',thumb:'https://picsum.photos/seed/pb/640/360',category:'Puzzle',src:'/games/puzzle-blocks/index.html'},
+      {id:4,title:'Soccer Flick',thumb:'https://picsum.photos/seed/sf/640/360',category:'Sports',src:'/games/soccer-flick/index.html'},
+      {id:5,title:'Block Builder',thumb:'https://picsum.photos/seed/bb/640/360',category:'Builders',src:'/games/block-builder/index.html'}
+    ];
+
+    // render utility
+    function createGameCard(g){
+      const div=document.createElement('div');
+      div.className='game';
+      div.innerHTML=`
+        <img src="${g.thumb}" alt="${g.title}">
+        <div class="meta"><div class="title">${g.title}</div><button class="play-btn" data-id="${g.id}">Play</button></div>
+        <div style="color:var(--muted);font-size:13px;margin-top:6px">${g.category}</div>
+      `;
+      return div;
+    }
+
+    const featuredGrid=document.getElementById('featuredGrid');
+    const grid=document.getElementById('gamesGrid');
+
+    // initial render
+    games.slice(0,4).forEach(g=>featuredGrid.appendChild(createGameCard(g)));
+    games.forEach(g=>grid.appendChild(createGameCard(g)));
+
+    // populate categories
+    const categories = Array.from(new Set(games.map(g=>g.category)));
+    const categoryFilter = document.getElementById('categoryFilter');
+    categories.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;categoryFilter.appendChild(o);});
+
+    // search & filter
+    const searchInput = document.getElementById('searchInput');
+    function filterGames(){
+      const q = searchInput.value.toLowerCase().trim();
+      const c = categoryFilter.value;
+      grid.innerHTML='';
+      const out = games.filter(g=>{
+        return (g.title.toLowerCase().includes(q)||g.category.toLowerCase().includes(q)) && (c?g.category===c:true);
+      });
+      out.forEach(g=>grid.appendChild(createGameCard(g)));
+    }
+    searchInput.addEventListener('input',filterGames);
+    categoryFilter.addEventListener('change',filterGames);
+
+    // modal player
+    const modal=document.getElementById('modal');
+    const player=document.getElementById('player');
+    const titleEl=document.getElementById('modalTitle');
+    const openNew=document.getElementById('openNew');
+
+    grid.addEventListener('click',e=>{
+      const btn=e.target.closest('button');
+      if(!btn) return;
+      const id = btn.dataset.id;
+      const game = games.find(x=>x.id==id);
+      if(!game) return;
+      titleEl.textContent='Playing — '+game.title;
+      player.src = game.src;
+      modal.style.display='flex';
+      document.body.style.overflow='hidden';
+    });
+
+    featuredGrid.addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;const id=btn.dataset.id;const game=games.find(x=>x.id==id);titleEl.textContent='Playing — '+game.title;player.src=game.src;modal.style.display='flex';document.body.style.overflow='hidden';});
+
+    document.getElementById('closeModal').addEventListener('click',()=>{modal.style.display='none';player.src='';document.body.style.overflow='auto'});
+    openNew.addEventListener('click',()=>{window.open(player.src,'_blank')});
+
+    // navigation between pages
+    const links=document.querySelectorAll('nav a');
+    const pages=document.querySelectorAll('.page');
+    links.forEach(link=>link.addEventListener('click',e=>{
+      e.preventDefault();
+      const target=link.dataset.page;
+      pages.forEach(p=>p.classList.remove('active'));
+      document.getElementById(target).classList.add('active');
+      history.replaceState(null,'','#'+target);
+    }));
+    document.querySelectorAll('.play-btn[data-page-target]').forEach(b=>b.addEventListener('click',e=>{const t=e.currentTarget.dataset.pageTarget;pages.forEach(p=>p.classList.remove('active'));document.getElementById(t).classList.add('active');history.replaceState(null,'','#'+t);}));
+
+    // ===== Theme handling (save to localStorage + animated transitions) =====
+    const themeSelect = document.getElementById('themeSelect');
+    const htmlEl = document.documentElement;
+    function applyTheme(name, skipSave){
+      htmlEl.classList.remove('theme-dark','theme-light','theme-neon');
+      if(name==='light') htmlEl.classList.add('theme-light');
+      else if(name==='neon') htmlEl.classList.add('theme-neon');
+      else htmlEl.classList.add('theme-dark');
+
+      // small fancy transition: briefly add a overlay fade
+      document.body.style.transition = 'background .45s ease,color .3s ease';
+      if(!skipSave) localStorage.setItem('pb_theme',name);
+      themeSelect.value = name;
+    }
+
+    // load saved or system preference
+    (function(){
+      const saved = localStorage.getItem('pb_theme');
+      if(saved){ applyTheme(saved, true); }
+      else{
+        // use prefers-color-scheme as default
+        const pref = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        applyTheme(pref, true);
+      }
+    })();
+
+    themeSelect.addEventListener('change',e=>applyTheme(e.target.value));
+
+    // animated background glow when switching to neon (extra subtle)
+    const observer = new MutationObserver(muts=>{
+      muts.forEach(m=>{
+        if(m.attributeName==='class'){
+          if(htmlEl.classList.contains('theme-neon')){
+            document.body.animate([{filter:'brightness(0.95)'},{filter:'brightness(1)'}],{duration:600,fill:'forwards'});
+          }
+        }
+      });
+    });
+    observer.observe(htmlEl,{attributes:true});
+
+    // small UX: restore last visited page from hash
+    (function(){
+      const h = location.hash.replace('#','');
+      if(h && document.getElementById(h)){
+        pages.forEach(p=>p.classList.remove('active'));
+        document.getElementById(h).classList.add('active');
+      }
+    })();
+
+    // accessibility: keyboard shortcut 't' to cycle themes
+    const themes = ['dark','neon','light'];
+    window.addEventListener('keydown',e=>{
+      if(e.key.toLowerCase()==='t'){
+        const cur = themeSelect.value || 'dark';
+        const idx = (themes.indexOf(cur) + 1) % themes.length;
+        applyTheme(themes[idx]);
+      }
+    });
+  </script>
+</body>
+</html>
